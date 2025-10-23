@@ -1,0 +1,12 @@
+.wishlist-btn{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    mat-icon{
+       color: whitesmoke;
+    }
+    
+    .active{
+        color: red;
+    }
+}

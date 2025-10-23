@@ -8,6 +8,10 @@
     font-size: 24px;
 }
 
+.toggle-sidebar{
+    cursor: pointer;
+}
+
 .side-bar{
     position: fixed;
     top: 65px;
@@ -18,7 +22,7 @@
         font-size: 26px;
     }
     .side-link{
-        padding: 20px 5px;
+        width: 300px !important;
     }
 }
 

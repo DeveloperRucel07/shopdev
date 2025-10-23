@@ -1,1 +1,39 @@
-<p>wish-list works!</p>
+<div class="wishlist">
+    <app-back-button navigateTo="/products/All"> Continue Shopping </app-back-button>
+
+    @if(store.wishlistItems().length > 0){
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold ">My Wishlist</h1>
+            <span class="text-gray-500 text-xl">{{ store.wishlistItems().length }} items</span>
+        </div>
+
+        <div class="grid-responsive">
+            @for(product of store.wishlistItems(); track product.id){
+                <app-product-card [product]="product">
+                    <button class="wishlist-btn" (click)="store.removeFromWishList(product)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </app-product-card>
+            }
+        </div>
+
+        <div class="mt-8 flex justify-center">
+            <button matButton="outlined" class="!m-6 danger clear-wishlist" aria-label="menu icon" (click)="store.clearWishList()">
+                Clear wishList
+            </button>
+        </div>
+    }@else {
+        <div class="flex flex-col items-center justify-center py-16 text-center !m-8">
+            <div class="w-20 h-20 mb-8 !m-4 rounded-full  bg-gray-100 flex items-center justify-center">
+                <mat-icon class="text-gray-500 transform scale-150">favorite_border</mat-icon>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-3 !m-4">Your wishlist is empty</h2>
+            <p class="text-gray-600 mb-8">save products you love for later</p>
+            <button matButton="filled" routerLink="/products/All" class="min-w-[200px] py-3 !m-4">
+                Start Shopping
+            </button>
+
+        </div>
+    }
+
+</div>

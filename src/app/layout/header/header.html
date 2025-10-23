@@ -4,7 +4,7 @@
 
   <div class="header-items flex gap-2">
         <button matIconButton class="example-icon md:my-0" aria-label="menu icon" routerLink="wishlist">
-            <mat-icon>favorite</mat-icon>
+            <mat-icon matBadge="{{store.wishlistItems().length}}" [matBadgeHidden]="store.wishlistItems().length === 0">favorite</mat-icon>
         </button>
         <button matIconButton class="example-icon md:my-0" aria-label="menu icon">
             <mat-icon>shopping_cart</mat-icon>
