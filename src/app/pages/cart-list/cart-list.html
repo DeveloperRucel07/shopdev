@@ -1,0 +1,53 @@
+<div class="py-6 shopping_cart">
+    <app-back-button navigateTo="/products/All" class="!m-4"> Continue Shopping </app-back-button>
+    <h1 class="text-3xl font-extrabold !ml-4"> Shopping Cart</h1>
+
+    <div class="flex gap-4 !ml-5 !mr-5 flex-row justify-between items-center  border border-gray-200 rounded-xl p-6 bg-white">
+        <div class="flex items-center gap-3">
+            <mat-icon class="!text-red-400 !m-2">favorite_border</mat-icon>
+            <div>
+                <h2 class="text-2xl font-bold"> Wishlist ({{ store.wishListCount() }})</h2>
+                <p class="font-semi-bold text-xl">You have {{ store.wishListCount()}} items saved for later!</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-3 !mr-4">
+            <button matButton routerLink="/wishlist"> View All WishItems</button>
+            <button matButton="filled" class="flex items-center" (click)="store.addWishToCart()"> 
+                <mat-icon>shopping_cart</mat-icon>
+                Add all to the Cart
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 !m-6 gap-4">
+        <div class="lg:col-span-2">
+            <app-view-cart></app-view-cart>
+        </div>
+        <div appViewPanel class="!h-250px] ">
+            <h2 class="text-2xl font-bold !m-4"> Order Summary</h2>
+            <div class="space-y-3 text-xl !pt-2 !gap-6 border-t">
+                <div class="flex justify-between !ml-5 !mr-5 !m-1">
+                    <span>SubTotal:</span>
+                    <span>{{ subTotal() }}€</span>
+                </div>
+                <div class="flex justify-between !ml-5 !mr-5">
+                    <span>Tax:</span>
+                    <span>{{ tax() }}€</span>
+                </div>
+                <div class="flex justify-between !ml-5 !mr-5 border-t pt-3 font-bold">
+                    <span>Total:</span>
+                    <span>{{ total() }}€</span>
+                </div>
+            </div>
+            <div>
+                <button matButton="filled" class="flex w-[90%] !m-6 justify-center">
+                    <mat-icon>wallet</mat-icon>
+                    Purchase Order   {{ total() }}€
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

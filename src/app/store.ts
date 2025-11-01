@@ -3,11 +3,13 @@ import { Product } from "./models/product";
 import { patchState, signalMethod, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { produce} from 'immer';
 import { Snackbar } from "./services/snackbar";
+import { Cart } from "./models/cart";
 
 export type EcommerceState = {
     products: Product[];
     category:string;
     wishlistItems: Product[];
+    cartItems: Cart[];
 }
 
 export const EcommerceStore = signalStore(
@@ -295,16 +297,19 @@ export const EcommerceStore = signalStore(
         ],
         category:'All',
         wishlistItems:[],
+        cartItems:[],
     }),
 
-    withComputed(({category, products})=>({
+    withComputed(({category, products, wishlistItems, cartItems})=>({
         filterProducts: computed(() => {
             if (category() === 'All') {
                 return shuffle(products());
             } else {
                 return shuffle(products()).filter(p => p.category === category());
             }
-        })
+        }),
+        wishListCount: computed( () => wishlistItems().length),
+        cartCount: computed(()=> cartItems().reduce((acc, item) => acc + item.quantity, 0)),
     })),
 
     withMethods((store, snackbar= inject(Snackbar)) => ({
@@ -323,6 +328,22 @@ export const EcommerceStore = signalStore(
             snackbar.showSnackBarSucess('✅ Product added to wishlist');
         },
 
+        addToCart: (product: Product, quantity =1)=>{
+          const existAlreadyInCart = store.cartItems().findIndex( i=> i.product.id === product.id);
+          const updateCartItems: Cart[] = produce(store.cartItems(), (draft:Cart[])=>{
+            if(existAlreadyInCart !==-1){
+              draft[existAlreadyInCart].quantity += quantity;
+              return
+            }else{
+              draft.push({product, quantity})
+            }
+          });
+          patchState(store, {
+            cartItems: updateCartItems
+          });
+          snackbar.showSnackBarSucess(existAlreadyInCart !==-1 ? '✅ Product added again' :'✅ Product added to the Cart');
+        },
+
         removeFromWishList : (product:Product) =>{
             patchState(store, {
                 wishlistItems: store.wishlistItems().filter(p =>p.id !==product.id)
@@ -332,7 +353,55 @@ export const EcommerceStore = signalStore(
 
         clearWishList: () =>{
             patchState(store, {wishlistItems: []})
-        }
+        },
+
+        setItemQuantity: (product: Product, quantity:number) =>{
+          const index = store.cartItems().findIndex(cart=> cart.product.id === product.id);
+          const updateCart = produce(store.cartItems(), (draft)=>{
+            draft[index].quantity = quantity;
+          });
+          patchState(store, {cartItems : updateCart});
+        }, 
+
+        addWishToCart: ()=>{
+          const updateCartWithWishlist = produce(store.cartItems(), (draft)=>{
+            store.wishlistItems().forEach((p)=>{
+              if(!draft.find(c=> c.product.id === p.id)){
+                draft.push({
+                  product: p,
+                  quantity:1
+                })
+              }
+            })
+          });
+          patchState(store, {
+            cartItems: updateCartWithWishlist,
+            wishlistItems: []
+          });
+        },
+
+        moveToWishlist: (product: Product)=>{
+          const movingProduct = store.cartItems().filter((p=> p.product.id !== product.id));
+          const updatedwishListItems = produce(store.wishlistItems(), (draft)=>{
+            if(!draft.find((p)=> p.id === product.id)){
+              draft.push(product);
+            }
+          })
+          patchState(store, {
+            cartItems: movingProduct,
+            wishlistItems: updatedwishListItems
+          })
+        }, 
+
+        removeFromCartList : (product: Product) =>{
+            patchState(store, {
+                cartItems: store.cartItems().filter(p =>p.product.id !== product.id)
+            });
+            snackbar.showSnackBarSucess('❎ Product remove from the Cart');
+        },
+
+
+
 
     }))
 

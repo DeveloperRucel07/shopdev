@@ -1,0 +1,14 @@
+<div appViewPanel>
+    <div class="flex justify-between text-2xl font-bold !m-4 p-6">
+        <h2>Cart Items</h2>
+        <h4 class="text-2xl text-teal-700">({{store.cartCount()}})</h4>
+    </div>
+    <div class="flex flex-col gap-2">
+        @for(cart_item of store.cartItems(); track cart_item.product.id){
+            <app-show-cart-item [item]="cart_item" class="!m-2"></app-show-cart-item>
+        }
+
+    </div>
+
+
+</div>

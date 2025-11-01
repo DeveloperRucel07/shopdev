@@ -1,3 +1,10 @@
+.products{
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 1920px !important; 
+}
+
+
 .grid-responsive{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -33,5 +40,6 @@
     h1{
         margin: 5px;
         padding: 5px 0;
+        
     }
 }

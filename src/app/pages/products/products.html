@@ -1,4 +1,4 @@
-<mat-sidenav-container >
+<mat-sidenav-container class="products">
     <mat-sidenav mode="side" opened="true" #drawer>
         <div class="p-6 h-full side-bar overflow-hidden" >
             <h2 class="text-lg text-gray-900 font-bold p-6 m-8 ">Categories</h2>
@@ -15,9 +15,9 @@
     </mat-sidenav>
     <mat-sidenav-content class="bg-gray-100 h-full product-content">
         <div class="bg-gray-100 h-full product-list overflow-hidden">
-            <h1 class="text-2xl font-bold text-gray-900 mb-1">
-                <button type="button" matButton (click)="drawer.toggle()" class="toggle-sidebar">
-                    <mat-icon>sort</mat-icon>
+            <h1 class="text-2xl font-bold text-gray-900 mb-1 flex gap-4 items-center ">
+                <button type="button" matButton (click)="drawer.toggle()" class="toggle-sidebar text-2xl font-bold">
+                    <mat-icon class="text-2xl font-bold">menu_open</mat-icon>
                 </button>
                 {{ category()}}</h1>
             <p class="text-base text-gray-500 mb-6 ">{{store.filterProducts().length }} products Found</p>

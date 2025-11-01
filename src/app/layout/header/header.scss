@@ -2,10 +2,20 @@
   flex: 1 1 auto;
 }
 .header{
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     background-color: rgb(231, 231, 231);
     color: oklch(39.8% 0.07 227.392);
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 1920px !important;
     span{
         font-weight: 700;
     }
+
+    
+}
+.header-content{
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: rgb(231, 231, 231);
+    color: oklch(39.8% 0.07 227.392);
 }

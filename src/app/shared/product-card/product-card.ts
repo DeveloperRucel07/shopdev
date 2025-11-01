@@ -16,5 +16,6 @@ export class ProductCard {
   product = input.required<Product>();
   addToCardInfo = output<Product>();
   addedToWishlist:boolean = false;
+  store = inject(EcommerceStore);
 
 }

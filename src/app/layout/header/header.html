@@ -1,22 +1,22 @@
-<mat-toolbar class="header bg-blue-500">
-  <span class="text-3xl font-bold">RU.DEV Shop</span>
-  <span class="example-spacer"></span>
+<div class="header-content">
+    <mat-toolbar class="header">
+        <span class="text-3xl font-bold cursor-pointer" routerLink="">RU.DEV Shop</span>
+        <span class="example-spacer"></span>
 
-  <div class="header-items flex gap-2">
-        <button matIconButton class="example-icon md:my-0" aria-label="menu icon" routerLink="wishlist">
-            <mat-icon matBadge="{{store.wishlistItems().length}}" [matBadgeHidden]="store.wishlistItems().length === 0">favorite</mat-icon>
-        </button>
-        <button matIconButton class="example-icon md:my-0" aria-label="menu icon">
-            <mat-icon>shopping_cart</mat-icon>
-        </button>
-        <button matButton class="md:my-0" aria-label="menu icon">
-            Sign in
-        </button>
-        <button matButton="filled" class="md:my-0" aria-label="menu icon ">
-            Sign up
-        </button>
-  </div>
-   
-  
-</mat-toolbar>
+        <div class="header-items flex gap-2">
+                <button matIconButton class="example-icon md:my-0" aria-label="menu icon" routerLink="wishlist">
+                    <mat-icon matBadge="{{store.wishListCount()}}" [matBadgeHidden]="store.wishListCount() === 0">favorite</mat-icon>
+                </button>
+                <button matIconButton class="example-icon md:my-0" aria-label="menu icon" routerLink="my_cart">
+                    <mat-icon matBadge="{{store.cartCount()}}" [matBadgeHidden]="store.cartCount() === 0">shopping_cart</mat-icon>
+                </button>
+                <button matButton class="md:my-0" aria-label="menu icon">
+                    Sign in
+                </button>
+                <button matButton="filled" class="md:my-0" aria-label="menu icon ">
+                    Sign up
+                </button>
+        </div>
+    </mat-toolbar>
+</div>
 
