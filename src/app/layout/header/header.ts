@@ -5,10 +5,11 @@ import { MatButtonModule} from '@angular/material/button';
 import { RouterLink } from "@angular/router";
 import {MatBadgeModule} from '@angular/material/badge';
 import { EcommerceStore } from '../../store';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, RouterLink, MatBadgeModule],
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule, RouterLink, MatBadgeModule, MatMenuModule],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })

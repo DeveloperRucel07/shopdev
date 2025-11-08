@@ -1,0 +1,53 @@
+<!-- <div class="sign-in-dialog flex flex-col gap-4 p-4 items-center justify-center max-w-full h-full sign-in "> -->
+    <div class="max-w-[500px] flex w-full justify-between items-center header-dialog">
+        <h2 mat-dialog-title class="font-bold text-2xl">Sign In</h2>
+        <button  aria-label="Close" class="!text-gray-600" mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content class="max-w-[500px] flex flex-col gap-4 items-center justify-center w-full content-dialog">
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full">
+            <mat-form-field appearance="fill" class="full-width form-control">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" required>
+                <button
+                    matSuffix
+                    >
+                    <mat-icon>email</mat-icon>
+                </button>
+                @if(signInForm.get('email')?.hasError('required')) {
+                    <mat-error>
+                        Email is required
+                    </mat-error>
+                }@else if(signInForm.get('email')?.hasError('email')) {
+                    <mat-error>
+                        Please enter a valid email address
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width form-control">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" [type]="type" required>
+                <button matSuffix
+                    (click)="clickEvent($event)"
+                    [attr.aria-pressed]="hide()">
+                    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                
+                @if(signInForm.get('password')?.hasError('required')) {
+                    <mat-error>
+                        Password is required
+                    </mat-error>
+                }
+
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" [disabled]="signInForm.invalid" class="font-bold text-2xl">
+                Sign In
+            </button>
+        </form>
+        <div class="text-center mt-4">
+            <p>Don't have an account? <a  mat-button color="accent" (click)="store.signupModal()">Sign Up</a></p>
+        </div>
+    </mat-dialog-content>
+
+<!-- </div> -->

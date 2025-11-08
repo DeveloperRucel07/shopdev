@@ -6,19 +6,15 @@ import { MatIcon } from "@angular/material/icon";
 import { EcommerceStore } from '../../store';
 import { RouterLink } from "@angular/router";
 import { MatButtonModule } from '@angular/material/button';
+import { SumarizeOrder } from "../../shared/sumarize-order/sumarize-order";
 
 @Component({
   selector: 'app-cart-list',
-  imports: [BackButton, ViewCart, ViewPanel, MatIcon, RouterLink, MatButtonModule],
+  imports: [BackButton, ViewCart, ViewPanel, MatIcon, RouterLink, MatButtonModule, SumarizeOrder],
   templateUrl: './cart-list.html',
   styleUrl: './cart-list.scss'
 })
 export class CartList {
-  taxPercentage:number = 0.005;
   store = inject(EcommerceStore);
-  subTotal = computed<number>(()=> Number((this.store.cartItems().reduce((acc, item) => acc + (item.product.price * item.quantity), 0)).toFixed(2)));
-  tax = computed<number>(()=> Number((this.subTotal() * this.taxPercentage).toFixed(2)));
-
-  total = computed(()=> (this.subTotal() - this.tax()).toFixed(2));
 
 }

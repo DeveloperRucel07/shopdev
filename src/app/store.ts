@@ -4,12 +4,18 @@ import { patchState, signalMethod, signalStore, withComputed, withMethods, withS
 import { produce} from 'immer';
 import { Snackbar } from "./services/snackbar";
 import { Cart } from "./models/cart";
+import { MatDialog } from "@angular/material/dialog";
+import { SignInDialog } from "./shared/sign-in-dialog/sign-in-dialog";
+import { SignUpDialog } from "./shared/sign-up-dialog/sign-up-dialog";
+import { User, UserSignIn } from "./models/user";
+import { Router } from "@angular/router";
 
 export type EcommerceState = {
     products: Product[];
     category:string;
     wishlistItems: Product[];
     cartItems: Cart[];
+    user: User | undefined;
 }
 
 export const EcommerceStore = signalStore(
@@ -298,6 +304,7 @@ export const EcommerceStore = signalStore(
         category:'All',
         wishlistItems:[],
         cartItems:[],
+        user: undefined
     }),
 
     withComputed(({category, products, wishlistItems, cartItems})=>({
@@ -312,7 +319,7 @@ export const EcommerceStore = signalStore(
         cartCount: computed(()=> cartItems().reduce((acc, item) => acc + item.quantity, 0)),
     })),
 
-    withMethods((store, snackbar= inject(Snackbar)) => ({
+    withMethods((store, snackbar= inject(Snackbar), matDialog=inject(MatDialog), router = inject(Router)) => ({
 
         setCategory: signalMethod<string>((category:string)=>{
             patchState( store,  {category});
@@ -400,9 +407,44 @@ export const EcommerceStore = signalStore(
             snackbar.showSnackBarSucess('❎ Product remove from the Cart');
         },
 
+        loginModal: () =>{
+          matDialog.open(SignInDialog, {
+            disableClose: true,
+            data: {
+              checkout: true,
+            },
+            width: '400px',
+          });
+        },
+
+        signIn : ({email, password, checkout, dialogId}: UserSignIn) => {
+          patchState(store, {
+            user: {
+              id: 'user001',
+              name: 'John Doe',
+              email: email,
+              imageUrl: 'https://randomuser.me/api/portraits/men/15.jpg'
+            }
+          });
+          matDialog.getDialogById(dialogId!)?.close();
+
+          if(checkout){
+            router.navigate(['/checkout']);
+          }
+          snackbar.showSnackBarSucess('✅ User signed in successfully');
+
+        },
 
 
 
+        signupModal: () =>{
+          matDialog.open(SignUpDialog, {
+            disableClose: true,
+            width: '400px',
+          });
+        },
+
+       
     }))
 
 )

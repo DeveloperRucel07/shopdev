@@ -1,0 +1,19 @@
+<ng-content selected="[itemList]"></ng-content>
+<h2 class="text-2xl font-bold !m-4"> Order Summary</h2>
+<div class="space-y-3 text-xl !pt-2 !gap-6 border-t">
+    <div class="flex justify-between !ml-5 !mr-5 !m-1">
+        <span>SubTotal:</span>
+        <span>{{ subTotal() }}€</span>
+    </div>
+    <div class="flex justify-between !ml-5 !mr-5">
+        <span>Tax:</span>
+        <span>{{ tax() }}€</span>
+    </div>
+    <div class="flex justify-between !ml-5 !mr-5 border-t pt-3 font-bold">
+        <span>Total:</span>
+        <span>{{ total() }}€</span>
+    </div>
+</div>
+
+<ng-content select="[procedButton]"></ng-content>
+

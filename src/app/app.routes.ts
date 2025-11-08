@@ -10,4 +10,14 @@ export const routes: Routes = [
     { path: 'wishlist', loadComponent: () => import('./pages/wish-list/wish-list').then(m => m.WishList) },
     { path: 'my_cart', loadComponent: () => import('./pages/cart-list/cart-list').then(m => m.CartList) },
 
+    {
+        path: 'checkout',
+        loadComponent: () => import('./pages/checkout/checkout').then(m => m.Checkout)
+    },
+    {
+        path: 'order_success',
+        loadComponent: () => import('./pages/checkout-success/checkout-success').then(m => m.CheckoutSuccess)
+    }
+
+
 ];
