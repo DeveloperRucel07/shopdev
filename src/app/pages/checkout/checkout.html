@@ -1,1 +1,43 @@
-<p>checkout works!</p>
+
+<div class="checkout-page p-6 mx-auto max-w-[1200px] py-6">
+    <app-back-button navigateTo="/my_cart" class="mb-4"> Back to Cart</app-back-button>
+    <h1 class="text-3xl font-extrabold !mb-4"> Checkout</h1>
+    <div class="grid grid-cols-1 lg:grid-cols-5 !m-6 gap-4">
+        <div class="lg:col-span-3 !max-h-[1000px] overflow-y-auto flex flex-col gap-6">
+           <app-shipping-form></app-shipping-form>
+           <app-payement-form></app-payement-form>
+        </div>
+        <div appViewPanel class="!h-[250px] lg:col-span-2 gap-3">
+            <app-sumarize-order>
+                <ng-container itemList>
+                    <div class="space-y-4 !mb-4">
+                        <h2 class="text-2xl font-bold !m-4"> Items in your Order</h2>
+                        <div  class="flex justify-between items-center flex-col !ml-5 !mr-5 border-b pb-2 !max-h-70 overflow-y-auto">
+                            @for(item of store.cartItems(); track item){
+                                <div class="flex items-center !gap-3 flex-row w-full justify-between !p-1">
+                                    <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="w-10 h-10 object-cover rounded"/>
+                                    <div>
+                                        <h3 class="font-medium text-sm">{{ item.product.name }}</h3>
+                                        <p class="text-gray-600">Quantity: {{ item.quantity }}</p>
+                                    </div>
+                                    <div class="font-bold text-sm">{{ (item.product.price * item.quantity)| number:'1.2-2' }}€</div>
+                                </div>
+                            }@empty{
+                                <p>No Product selected</p>
+                            } 
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container procedButton>
+                   <div>
+                    <button matButton="filled" class="w-full !p-4 !mt-3 " 
+                        [disabled]="store.loading()"
+                        (click)="store.proceedOrder()" >
+                        {{ store.loading() ? 'Processing...' : 'Place Order' }}
+                    </button>
+                    </div>
+                </ng-container>
+            </app-sumarize-order>
+
+        </div>
+    </div>

@@ -16,7 +16,7 @@ import { EcommerceStore } from '../../store';
 export class SignUpDialog {
   store = inject(EcommerceStore);
    signUpForm: FormGroup = new FormGroup({
-    name: new FormControl('test12345', [Validators.required]),
+    name: new FormControl('John Doe', [Validators.required]),
     email : new FormControl('user@email.com', [Validators.email, Validators.required]),
     password: new FormControl('test12345', [Validators.required]),
   });

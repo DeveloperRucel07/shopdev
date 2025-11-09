@@ -17,4 +17,5 @@ import { SumarizeOrder } from "../../shared/sumarize-order/sumarize-order";
 export class CartList {
   store = inject(EcommerceStore);
 
+
 }

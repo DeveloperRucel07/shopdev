@@ -1,0 +1,39 @@
+<div class="payment">
+    <h2 class="text-2xl font-extrabold !mb-4"> Payment Information</h2>
+    <div class="border-t border-b flex flex-row justify-center items-center !mb-6">
+        <mat-radio-group class="flex flex-row justify-center items-center !mt-4" aria-label="Select an option">
+            <mat-radio-button value="paypal" class="!mr-4">
+                <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/paypal-icon.png" alt="paypal" class="inline-block w-20 h-20 ml-2"/>
+            </mat-radio-button>
+            <mat-radio-button value="bank_transfer">
+                <img src="https://www.iconpacks.net/icons/1/free-bank-icon-1071-thumb.png" alt="bank" class="inline-block w-10 h-10 ml-2"/>
+
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <h2 class="text-xl font-extrabold !mb-4">Add Credit Card Informations</h2>
+    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+        <div>
+            <label for="cardNumber" class="block mb-1 font-medium">Card Number</label>
+            <input id="cardNumber" formControlName="cardNumber" type="text" class="w-full !p-2 border border-gray-300 rounded" />
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="expiryDate" class="block mb-1 font-medium">Expiry Date</label>
+                <input id="expiryDate" formControlName="expiryDate" type="text" class="w-full !p-2 border border-gray-300 rounded" />
+            </div>
+            <div>
+                <label for="cvv" class="block mb-1 font-medium">CVV</label>
+                <input id="cvv" formControlName="cvv" type="text" class="w-full !p-2 border border-gray-300 rounded" />
+            </div>
+        </div>
+        <div>
+            <label for="cardHolderName" class="block mb-1 font-medium">Card Holder Name</label>
+            <input id="cardHolderName" formControlName="cardHolderName" type="text" class="w-full !p-2 border border-gray-300 rounded" />
+        </div>
+        <div class="flex justify-center !mt-2 w-full !p-1">
+            <button type="submit" mat-raised-button class="!mt-4 bg-gray-300 !p-3"> Save Payment Info</button>
+        </div>
+    </form>
+    
+</div>

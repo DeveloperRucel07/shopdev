@@ -9,6 +9,8 @@ import { SignInDialog } from "./shared/sign-in-dialog/sign-in-dialog";
 import { SignUpDialog } from "./shared/sign-up-dialog/sign-up-dialog";
 import { User, UserSignIn } from "./models/user";
 import { Router } from "@angular/router";
+import { Order } from "./models/order";
+import { withStorageSync } from "@angular-architects/ngrx-toolkit"
 
 export type EcommerceState = {
     products: Product[];
@@ -16,6 +18,8 @@ export type EcommerceState = {
     wishlistItems: Product[];
     cartItems: Cart[];
     user: User | undefined;
+
+    loading: boolean;
 }
 
 export const EcommerceStore = signalStore(
@@ -304,8 +308,10 @@ export const EcommerceStore = signalStore(
         category:'All',
         wishlistItems:[],
         cartItems:[],
-        user: undefined
+        user: undefined,
+        loading: false,
     }),
+    withStorageSync({key:'shopdev', select: ({ wishlistItems, cartItems, user}) =>({ wishlistItems, cartItems, user})}),
 
     withComputed(({category, products, wishlistItems, cartItems})=>({
         filterProducts: computed(() => {
@@ -435,8 +441,6 @@ export const EcommerceStore = signalStore(
 
         },
 
-
-
         signupModal: () =>{
           matDialog.open(SignUpDialog, {
             disableClose: true,
@@ -444,7 +448,50 @@ export const EcommerceStore = signalStore(
           });
         },
 
-       
+        signOut : () =>{
+          patchState(store, {
+            user: undefined
+          });
+          snackbar.showSnackBarSucess('✅ User signed out successfully');
+        },
+
+        checkout: () =>{
+          if(!store.user()){
+            matDialog.open(SignInDialog, {
+              disableClose: true,
+              data: {
+                checkout: true,
+              },
+              width: '400px',
+            });
+            return;
+          }
+          router.navigate(['/checkout']);
+        },
+
+
+        proceedOrder: async () =>{
+          patchState(store, {loading: true});
+          const user = store.user();
+          if(!user){
+            snackbar.showSnackBarError("❌ Please Login before Continiung");
+            patchState(store, {loading: false});
+            return
+          }
+
+          const order: Order = {
+            id: crypto.randomUUID(),
+            userId: user.id,
+            total: store.cartItems().reduce((acc, item)=>acc + item.quantity* item.product.price, 0),
+            items: store.cartItems(),
+            paymentStatus: 'success',
+          }
+          await new Promise((resolve)=> setTimeout(resolve, 1000));
+          patchState(store, {loading: false, cartItems : []});
+          router.navigate(['/order_success']);
+
+        }
+
     }))
 
 )

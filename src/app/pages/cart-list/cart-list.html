@@ -27,10 +27,18 @@
             <app-sumarize-order>
                 <ng-container procedButton>
                    <div>
+                    @if(store.user()) {
+                        <button matButton="filled" class="flex w-[90%] !m-6 justify-center" (click)="store.checkout()">
+                            <mat-icon>wallet</mat-icon>
+                            Proceed  Payment 
+                        </button>
+                    }@else {
                         <button matButton="filled" class="flex w-[90%] !m-6 justify-center" (click)="store.loginModal()">
                             <mat-icon>wallet</mat-icon>
                             Proceed Order 
                         </button>
+                    }
+                        
                     </div>
                 </ng-container>
             </app-sumarize-order>

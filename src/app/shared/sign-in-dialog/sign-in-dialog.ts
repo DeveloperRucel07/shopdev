@@ -40,6 +40,12 @@ export class SignInDialog {
 
   }
 
+  openSignUp(){
+    this.dialogRef.close();
+    this.store.signupModal();
+
+  }
+
   clickEvent(event: MouseEvent) {
     if(this.type === 'password'){
       this.type = 'text'

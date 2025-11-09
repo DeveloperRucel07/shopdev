@@ -17,7 +17,7 @@
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item routerLink="profile">{{user.name}}</button>
-                    <button mat-menu-item>Logout</button>
+                    <button mat-menu-item (click)="store.signOut()">Logout</button>
                 </mat-menu>
 
                 }@else {
