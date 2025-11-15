@@ -8,7 +8,7 @@ import { EcommerceStore } from '../../store';
 
 @Component({
   selector: 'app-product-card',
-  imports: [MatAnchor, MatIconModule, MatButtonModule],
+  imports: [MatAnchor, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss'
 })

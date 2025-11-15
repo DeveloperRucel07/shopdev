@@ -1,3 +1,9 @@
 <button class="wishlist-btn" (click)="toggleWishList(product())">
-        <mat-icon [class.active] ="addedToWishlist">{{iconBtn()}}</mat-icon>
+        <mat-icon [class.active] ="addedToWishlist">
+                @if(iconBtn()){     
+                        {{iconBtn()}}
+                }@else{
+                        favorite_border
+                }
+        </mat-icon>
 </button>

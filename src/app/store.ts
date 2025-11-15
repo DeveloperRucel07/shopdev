@@ -20,6 +20,7 @@ export type EcommerceState = {
     user: User | undefined;
 
     loading: boolean;
+    selectedProductId: string | undefined;
 }
 
 export const EcommerceStore = signalStore(
@@ -59,7 +60,7 @@ export const EcommerceStore = signalStore(
         imageUrl: "https://images.unsplash.com/photo-1758348844355-2ef28345979d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
         rating: 4.4,
         reviewCount: 742,
-        inStock: true,
+        inStock: false,
         category: "Electronics"
       },
       {
@@ -125,7 +126,7 @@ export const EcommerceStore = signalStore(
         imageUrl: "https://images.unsplash.com/photo-1609803384069-19f3e5a70e75?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=735",
         rating: 4.4,
         reviewCount: 200,
-        inStock: true,
+        inStock: false,
         category: "Fashion"
       },
       {
@@ -180,7 +181,7 @@ export const EcommerceStore = signalStore(
         imageUrl: "https://plus.unsplash.com/premium_photo-1744444401599-d26518a5de3b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
         rating: 4.5,
         reviewCount: 261,
-        inStock: true,
+        inStock: false,
         category: "Home & Living"
       },
       {
@@ -246,7 +247,7 @@ export const EcommerceStore = signalStore(
         imageUrl: "https://images.unsplash.com/photo-1710693547884-41a6113d67d2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=777",
         rating: 4.6,
         reviewCount: 612,
-        inStock: true,
+        inStock: false,
         category: "Beauty & Personal Care"
       },
       {
@@ -257,7 +258,7 @@ export const EcommerceStore = signalStore(
         imageUrl: "https://images.unsplash.com/photo-1727417490350-4a1a6e18d9f5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1331",
         rating: 4.8,
         reviewCount: 870,
-        inStock: true,
+        inStock: false,
         category: "Gaming & Accessories"
       },
       {
@@ -310,25 +311,31 @@ export const EcommerceStore = signalStore(
         cartItems:[],
         user: undefined,
         loading: false,
+        selectedProductId: undefined,
     }),
     withStorageSync({key:'shopdev', select: ({ wishlistItems, cartItems, user}) =>({ wishlistItems, cartItems, user})}),
 
-    withComputed(({category, products, wishlistItems, cartItems})=>({
+    withComputed(({category, products, wishlistItems, cartItems, selectedProductId})=>({
         filterProducts: computed(() => {
             if (category() === 'All') {
                 return shuffle(products());
             } else {
-                return shuffle(products()).filter(p => p.category === category());
+                return products().filter(p => p.category === category());
             }
         }),
         wishListCount: computed( () => wishlistItems().length),
         cartCount: computed(()=> cartItems().reduce((acc, item) => acc + item.quantity, 0)),
+        selectedProduct: computed(()=> products().find(p => p.id === selectedProductId())),
     })),
 
     withMethods((store, snackbar= inject(Snackbar), matDialog=inject(MatDialog), router = inject(Router)) => ({
 
         setCategory: signalMethod<string>((category:string)=>{
             patchState( store,  {category});
+        }),
+
+        setProductId: signalMethod<string>((selectedProductId: string)=>{
+          patchState(store, {selectedProductId: selectedProductId})
         }),
 
         addTowishList:(product: Product) =>{

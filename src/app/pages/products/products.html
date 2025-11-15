@@ -24,7 +24,9 @@
             <div class="grid-responsive m-8">
                 @for(product of store.filterProducts(); track product.id ){
                     <app-product-card [product]="product" (addToCardInfo)="addToCart()">
-                        <app-toggle-wishlist-button [product]="product" iconBtn ='favorite'></app-toggle-wishlist-button>
+                        <app-toggle-wishlist-button [product]="product" iconBtn ='favorite'
+                            [style.view-transition-name]="'wishlist-button-' + product.id"
+                        ></app-toggle-wishlist-button>
                     </app-product-card>
                 }
             </div>

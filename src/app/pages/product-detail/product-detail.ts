@@ -1,0 +1,31 @@
+import { Component, computed, inject, input, signal } from '@angular/core';
+import { EcommerceStore } from '../../store';
+import { BackButton } from "../../layout/back-button/back-button";
+import { MatIcon } from "@angular/material/icon";
+import { QuantitySelector } from "../../shared/quantity-selector/quantity-selector";
+import { MatAnchor, MatIconButton } from "@angular/material/button";
+import { ToggleWishlistButton } from "../../layout/toggle-wishlist-button/toggle-wishlist-button";
+
+@Component({
+  selector: 'app-product-detail',
+  imports: [BackButton, MatIcon, QuantitySelector, MatAnchor, ToggleWishlistButton, MatIconButton],
+  templateUrl: './product-detail.html',
+  styleUrl: './product-detail.scss'
+})
+export class ProductDetail {
+
+  productId = input.required<string>();
+  icon = 'favorite';
+  store = inject(EcommerceStore);
+  backTo = computed(()=> `/products/${this.store.category()}`);
+  quantity = signal(1);
+  constructor( ){
+    this.store.setProductId(this.productId);
+
+    console.log(this.backTo())
+
+  }
+
+  
+
+}
