@@ -18,11 +18,9 @@ export class ProductDetail {
   icon = 'favorite';
   store = inject(EcommerceStore);
   backTo = computed(()=> `/products/${this.store.category()}`);
-  quantity = signal(1);
+  quantity = 1;
   constructor( ){
     this.store.setProductId(this.productId);
-
-    console.log(this.backTo())
 
   }
 
