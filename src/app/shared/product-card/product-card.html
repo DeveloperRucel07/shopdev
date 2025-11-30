@@ -1,10 +1,10 @@
 
-<div class="bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden flex flex-col product-card transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-xl ">
+<div class="bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden flex flex-col product-card transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-xl " appStopPropagation>
     <img [src]="product().imageUrl" alt="" class="w-full h-[300px] object-cover rounded-t-xl" [routerLink]="['/product', product().id]"
     [style.view-transition-name]=" 'product-name-' + product().id" 
     >
     <ng-content [style.view-transition-name]="'wishlist-button-' + product.id"></ng-content>
-    <div class="p-5 flex flex-col flex-1 card-description" [routerLink]="['/product', product().id]">
+    <div class="p-5 flex flex-col flex-1 card-description" appStopPropagation>
         <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">{{product().name}}</h3>
         <p class="text-sm text-gray text-gray-600 mb-4 flex-1 leading-relaxed">{{product().description}}</p>
         <app-star-rating [rating]="product().rating"></app-star-rating>

@@ -7,7 +7,7 @@ import { Cart } from "./models/cart";
 import { MatDialog } from "@angular/material/dialog";
 import { SignInDialog } from "./shared/sign-in-dialog/sign-in-dialog";
 import { SignUpDialog } from "./shared/sign-up-dialog/sign-up-dialog";
-import { User, UserSignIn } from "./models/user";
+import { User, UserSignIn, UserSignUp } from "./models/user";
 import { Router } from "@angular/router";
 import { Order } from "./models/order";
 import { withStorageSync } from "@angular-architects/ngrx-toolkit"
@@ -1524,6 +1524,16 @@ export const EcommerceStore = signalStore(
             snackbar.showSnackBarSucess('❎ Product remove from the Cart');
         },
 
+        loginModalHeader: () =>{
+          matDialog.open(SignInDialog, {
+            disableClose: true,
+            data: {
+              checkout: false,
+            },
+            width: '400px',
+          });
+        },
+
         loginModal: () =>{
           matDialog.open(SignInDialog, {
             disableClose: true,
@@ -1547,9 +1557,30 @@ export const EcommerceStore = signalStore(
 
           if(checkout){
             router.navigate(['/checkout']);
+          }else{
+            router.navigate(['/products/All']);
           }
           snackbar.showSnackBarSucess('✅ User signed in successfully');
+        },
 
+        signUp : ({name, email, password, checkout, dialogId}: UserSignUp) => {
+          const photo  = Math.floor(Math.random()*100)+1 ;
+          patchState(store, {
+            user: {
+              id: 'user001',
+              name: name,
+              email: email,
+              imageUrl: `https://randomuser.me/api/portraits/men/${photo}.jpg`
+            }
+          });
+          matDialog.getDialogById(dialogId!)?.close();
+
+          if(checkout){
+            router.navigate(['/checkout']);
+          }else{
+            router.navigate(['/products/All']);
+          }
+          snackbar.showSnackBarSucess('✅ User Account create successfully');
         },
 
         signupModal: () =>{

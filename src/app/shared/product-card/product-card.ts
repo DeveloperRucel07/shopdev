@@ -6,10 +6,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { RouterLink } from "@angular/router";
 import { EcommerceStore } from '../../store';
 import { StarRating } from "../star-rating/star-rating";
+import { ClickStopPropagation } from "../../directives/stop-propagation";
 
 @Component({
   selector: 'app-product-card',
-  imports: [MatAnchor, MatIconModule, MatButtonModule, RouterLink, StarRating],
+  imports: [MatAnchor, MatIconModule, MatButtonModule, RouterLink, StarRating, ClickStopPropagation],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss'
 })

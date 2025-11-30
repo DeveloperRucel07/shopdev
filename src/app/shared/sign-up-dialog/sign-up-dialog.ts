@@ -1,15 +1,16 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatIcon } from "@angular/material/icon";
-import { MatDialogContent } from "@angular/material/dialog";
+import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatError, MatFormFieldModule } from "@angular/material/form-field";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { EcommerceStore } from '../../store';
+import { UserSignUp } from '../../models/user';
 
 @Component({
   selector: 'app-sign-up-dialog',
-  imports: [MatIcon, MatDialogContent, MatFormFieldModule, MatError, ReactiveFormsModule, MatInput, MatButton],
+  imports: [MatIcon, MatDialogModule, MatFormFieldModule, MatError, ReactiveFormsModule, MatInput, MatButton],
   templateUrl: './sign-up-dialog.html',
   styleUrl: './sign-up-dialog.scss'
 })
@@ -23,11 +24,12 @@ export class SignUpDialog {
 
   type:string = 'password';
   hide = signal(true);
+  dialogRef = inject(MatDialogRef);
 
   onSubmit(){
     if(this.signUpForm.valid){
-      // Handle sign-in logic here
-      console.log('Form Submitted', this.signUpForm.value);
+      const {name, email, password} = this.signUpForm.value;
+      this.store.signUp({name, email, password, checkout: false, dialogId: this.dialogRef.id} as UserSignUp);
     }
   }
 

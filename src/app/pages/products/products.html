@@ -23,7 +23,7 @@
             <p class="text-base text-gray-500 mb-6 ">{{store.filterProducts().length }} products Found</p>
             <div class="grid-responsive m-8">
                 @for(product of store.filterProducts(); track product.id ){
-                    <app-product-card [product]="product" (addToCardInfo)="addToCart()">
+                    <app-product-card [product]="product" (addToCardInfo)="addToCart()" appStopPropagation>
                         <app-toggle-wishlist-button [product]="product" iconBtn ='favorite'
                             [style.view-transition-name]="'wishlist-button-' + product.id"
                         ></app-toggle-wishlist-button>

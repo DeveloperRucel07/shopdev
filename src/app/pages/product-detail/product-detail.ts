@@ -7,6 +7,7 @@ import { MatAnchor, MatIconButton } from "@angular/material/button";
 import { ToggleWishlistButton } from "../../layout/toggle-wishlist-button/toggle-wishlist-button";
 import { StarRating } from "../../shared/star-rating/star-rating";
 import { Reviews } from "./reviews/reviews";
+import { Cart } from '../../models/cart';
 
 @Component({
   selector: 'app-product-detail',
@@ -21,6 +22,7 @@ export class ProductDetail {
   store = inject(EcommerceStore);
   backTo = computed(()=> `/products/${this.store.category()}`);
   quantity = 1;
+  selectProduct = computed(()=> this.store.cartItems().find( p => p.product.id === this.productId())) 
   constructor( ){
     this.store.setProductId(this.productId);
 
