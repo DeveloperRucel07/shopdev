@@ -5,10 +5,12 @@ import { MatIcon } from "@angular/material/icon";
 import { QuantitySelector } from "../../shared/quantity-selector/quantity-selector";
 import { MatAnchor, MatIconButton } from "@angular/material/button";
 import { ToggleWishlistButton } from "../../layout/toggle-wishlist-button/toggle-wishlist-button";
+import { StarRating } from "../../shared/star-rating/star-rating";
+import { Reviews } from "./reviews/reviews";
 
 @Component({
   selector: 'app-product-detail',
-  imports: [BackButton, MatIcon, QuantitySelector, MatAnchor, ToggleWishlistButton, MatIconButton],
+  imports: [BackButton, MatIcon, QuantitySelector, MatAnchor, ToggleWishlistButton, MatIconButton, StarRating, Reviews],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss'
 })

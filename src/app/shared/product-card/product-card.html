@@ -7,12 +7,15 @@
     <div class="p-5 flex flex-col flex-1 card-description" [routerLink]="['/product', product().id]">
         <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">{{product().name}}</h3>
         <p class="text-sm text-gray text-gray-600 mb-4 flex-1 leading-relaxed">{{product().description}}</p>
-        <div class="text-sm font-medium mb-4">
+        <app-star-rating [rating]="product().rating"></app-star-rating>
+        <div class="text-sm font-bold mb-4"
+        [class]="!product().inStock ? 'text-red-400 !text-md ' : 'text-green-800' "
+        >
             {{product().inStock ? 'In Stock' : 'Out of stock'}}
         </div>
         <div class="flex items-center justify-between mt-auto">
             <span class="text-xl font-bold text-gray-900">{{product().price }}€</span>
-            <button matButton="filled" class="flex items-center gap-2" (click)="store.addToCart(product(), 1)">
+            <button matButton="filled" class="flex items-center gap-2" (click)="store.addToCart(product(), 1)" [disabled]="!product().inStock">
                 <mat-icon>shopping_cart</mat-icon> Add to Cart
             </button>
         </div>

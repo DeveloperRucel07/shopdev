@@ -1,0 +1,22 @@
+<div appViewPanel class="!p-4 !mb-4">
+    <div class="flex justify-between items-center !mb-4  !p-4">
+        <h2 class="text-xl font-semibold">Customer Reviews</h2>
+        @if(store.user()){
+            <button matButton="filled" (click)="store.showWriteReview()">Write a Review</button>
+        }
+    </div>
+    @if(store.writeReview()){
+        <app-write-review class="!m-4"> </app-write-review>
+    }
+
+
+
+    <app-rating-summary [product] ="product()"></app-rating-summary>
+    <div class="flex flex-col gap-6">
+        @for(review of sortedReviews(); track review.id){
+            <app-review-item [review]="review"></app-review-item>
+        }
+
+    </div>
+
+</div>
