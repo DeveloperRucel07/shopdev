@@ -22,6 +22,10 @@ export const routes: Routes = [
     {
         path: 'product/:productId',
         loadComponent: () => import('./pages/product-detail/product-detail').then(m => m.ProductDetail)
+    },
+    {
+        path: 'imprint',
+        loadComponent: () => import('./pages/imprint/imprint').then(m => m.Imprint)
     }
 
 

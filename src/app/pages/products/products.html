@@ -1,16 +1,22 @@
 <mat-sidenav-container class="products">
     <mat-sidenav mode="side" opened="true" #drawer>
-        <div class="p-6 h-full side-bar overflow-hidden" >
-            <h2 class="text-lg text-gray-900 font-bold p-6 m-8 ">Categories</h2>
-            <mat-nav-list class="flex gap-4 side-main items-center">
-                @for(cat of categories(); track cat){
-                    <mat-list-item [activated] ="cat == category()" class="my-2 side-link" [routerLink]="['/products', cat]">
-                        <span matListItemTitle [class]="cat == category() ? 'active': '' ">
-                            {{ cat | titlecase}}
-                        </span>
-                    </mat-list-item>
-                }
-            </mat-nav-list>
+        <div class="p-6 h-full side-bar overflow-hidden sidebar" >
+            <div class="catego">
+                <h2 class="text-lg text-gray-900 font-bold p-6 m-8 ">Categories</h2>
+                <mat-nav-list class="flex gap-4 side-main items-center">
+                    @for(cat of categories(); track cat){
+                        <mat-list-item [activated] ="cat == category()" class="my-2 side-link" [routerLink]="['/products', cat]">
+                            <span matListItemTitle [class]="cat == category() ? 'active': '' ">
+                                {{ cat | titlecase}}
+                            </span>
+                        </mat-list-item>
+                    }
+                    
+                </mat-nav-list>
+            </div>
+            <div class="imprint-link">
+                <a routerLink="/imprint">Imprint</a>
+            </div>
         </div>
     </mat-sidenav>
     <mat-sidenav-content class="bg-gray-100 h-full product-content">
