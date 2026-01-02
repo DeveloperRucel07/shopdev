@@ -14,7 +14,12 @@ import {MatMenuModule} from '@angular/material/menu';
   styleUrl: './header.scss'
 })
 export class Header {
+  isActive = false;
 
   store = inject(EcommerceStore);
+
+  toggleActive(): void {
+    this.isActive = !this.isActive;
+  }
 
 }

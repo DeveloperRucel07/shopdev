@@ -3,7 +3,7 @@
         <span class="text-3xl font-bold cursor-pointer" routerLink="">Shop Dev</span>
         <span class="example-spacer"></span>
 
-        <div class="header-items flex gap-2">
+        <div class="header-items flex gap-2" [class.active]="isActive">
                 <button matIconButton class="example-icon md:my-0" aria-label="menu icon" routerLink="wishlist">
                     <mat-icon aria-hidden="false" matBadge="{{store.wishListCount()}}" [matBadgeHidden]="store.wishListCount() === 0">favorite</mat-icon>
                 </button>
@@ -29,6 +29,9 @@
                     </button>
                 }
         </div>
+            <button matIconButton class=" md:my-0" aria-label="menu icon" class="burger" (click)="toggleActive()">
+                <mat-icon>menu</mat-icon>
+            </button>
     </mat-toolbar>
 </div>
 

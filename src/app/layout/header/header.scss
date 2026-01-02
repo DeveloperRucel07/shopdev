@@ -19,3 +19,29 @@
     background-color: rgb(231, 231, 231);
     color: oklch(39.8% 0.07 227.392);
 }
+
+.burger{
+    display: none;
+}
+
+@media (max-width: 500px) {
+    .burger{
+        display: block;
+    }
+    .header-items{
+        width: 100vw;
+        position: absolute;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: 50px;
+        left: 0;
+        background-color: rgb(231, 231, 231);
+        padding: 20px;
+        display: none;
+    }
+
+    .active{
+        display: flex;
+    }
+}

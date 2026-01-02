@@ -1,8 +1,8 @@
 <mat-sidenav-container class="products">
-    <mat-sidenav mode="side" opened="true" #drawer>
+    <mat-sidenav mode="side" opened="false" #drawer>
         <div class="p-6 h-full side-bar overflow-hidden sidebar" >
             <div class="catego">
-                <h2 class="text-lg text-gray-900 font-bold p-6 m-8 ">Categories</h2>
+                <h2 class="text-lg text-gray-900 font-bold p-6 m-8 " (click)="drawer.toggle()">Categories</h2>
                 <mat-nav-list class="flex gap-4 side-main items-center">
                     @for(cat of categories(); track cat){
                         <mat-list-item [activated] ="cat == category()" class="my-2 side-link" [routerLink]="['/products', cat]">
